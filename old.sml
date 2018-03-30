@@ -37,5 +37,34 @@ fun checkheadings(data) = if(length(data) <= 5 ) then ()
                                     else checkheadings(List.drop(data,pos+1))
                                 end
                                 )
+    fun startold(prev , [c1,c2] , ahead , starter) = append(output , str(c1)^str(c2)^starter )
+        | startold(prev , charlist , ahead  , starter) = ( if(#1(isinline(starter , charlist )) ) then ( append(output , starter);
+                                                                                            start(List.nth(charlist , #2(isinline(starter , charlist))-1 ),
+                                                                                                tl(List.drop(charlist,(#2(isinline(starter , charlist))) ) ) ,
+                                                                                                List.nth(charlist , (#2(isinline(starter , charlist))) + 1) , "    " )
+                                                                                            )
+                 (*inline items started *)  else if(prev = #"\n" andalso isalphabet(ahead ) andalso hd(charlist) = #"\n"  ) then ( append(output , "<p>");                  (* inline ended*)
+                                                                                                         start(hd(charlist) , tl(charlist) , List.nth(charlist , 2) , "</p>\n" )  )
+                                            else if( prev = #"\n" andalso hd(charlist) = #" " ) then start(prev , tl(charlist) , List.nth(charlist , 2) , starter)
+                                            else if( (hd(charlist) = #"\n" orelse List.take(explode(starter) ,3 ) = [#"<" ,#"/" , #"h" ]  ) andalso ahead = #"\n" ) then ( append(output , str(hd(charlist))^starter);
+                                                                                                                                                                     start(hd(charlist) , tl(charlist) , List.nth(charlist ,2) , "    " )    )
+                                            else if(length(charlist) >= 5 andalso hd(charlist) = #"#" ) then ( let val(star , gap) = headers(tl(charlist) , 1);
+                                                                                                                in start(List.nth(charlist , gap -1) , tl(List.drop(charlist,gap ) ) , List.nth(charlist ,gap+1) , star )
+                                                                                                                end )
+                                            else  if( ahead = #"*" andalso hd(charlist) = #"*" ) then ( append(output , "<strong>") ;                            (*inline items started *)
+                                                                                                     start(prev , tl(tl(charlist)) , List.nth(charlist ,3) , "</strong>" )    )
+                 (* inline ended*)          else ( append(output , str(hd(charlist)));
+                                                    start(hd(charlist) , tl(charlist) , List.nth(charlist ,2) , starter ) 
+                                                    )
+                                        )
 
 fun main(filename) = (write(output,"");  checkheadings(explode(slurp(filename))) )
+
+
+else if( ( List.take(tl(charlist) , 4) <> [#" ", #" ", #" ", #" " ] andalso ahead <> #"\t" ) andalso ahead <> #"\n" andalso hd(starter) = "</li>" ) then (
+                                append(output , hd(starter)^"\n");
+                                start(prev , charlist , ahead , tl(starter) )
+                            )else if( ( List.take(tl(charlist) , 4) <> [#" ", #" ", #" ", #" " ] andalso ahead <> #"\t" ) andalso ahead <> #"\n"  andalso (not (#1(islist(#"\n" , tl(charlist) , 1 ))) ) andalso ( hd(starter) = "</ol>") ) then (
+                                append(output , hd(starter)^"\n");
+                                start(prev , charlist , ahead , tl(starter) )
+                            )

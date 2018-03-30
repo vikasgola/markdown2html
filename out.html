@@ -1,98 +1,143 @@
+ <p>
+<center></p>
 
-<center>
+
 <h1>Department of Computer Science and Engineering</h1>
+
 
 
 <h2> Programming Languages</h2>
 
 
+
 <h3> II Semester 2017-18</h3>
+
 
 
 <h4> Instructor: [S. Arun-Kumar]</h4>
 
 
+
 <h5> Assignment 2</h5>
+
 
 
 <h6> A Markdown translator for HTML text + HTML tables from csv format</h6>
 
-</center>
 
-We need to do the following. Create a markdown+table <em>functional</em> program in SML
-using the functionalities given in <tt>fileIO.sml</tt>.
+<p></center></p>
 
-10. This HTML file <tt>mdtab.txt.html</tt> was produced by running
-    [markdown] [jg] on the text file <tt>mdtab.txt</tt>.
-    Use the text file to test your own program.
+<p>We need to do the following. Create a markdown+table <em>functional</em> program in SML
+using the functionalities given in <tt>fileIO.sml</tt>.</p>
 
-8. To know about markdown go to the [markdown syntax][jg]
-   page maintained by John Gruber. Many of the simplifications listed
-   below also refer to Gruber's document. 
 
-4. Recognize and leave all inline HTML tags unchanged.
+<blockquote> We need to do the following. Create a markdown+table <em>functional</em> program in SML
+using the functionalities given in <tt>fileIO.sml</tt>.</blockquote>
 
-5. <strong>Headings.</strong> Do not implement the underlining feature of 
-   markdown. Implement only the headings defined by hashes. 
-   Hence you must implement the 6 levels of headings which 
-   are the levels shown in
-   the centered lines at the beginning of this document. The
-   number of hashes at the beginning of the line indicates the 
-   heading level.
 
-3. Implement the following for pure text elements -- 
-   Use of double asterisks for <strong>bolding</strong> and single asterisks for
-   <em>italics</em>.
-   There is nothing in markdown for underlining -- under-scores are
-   used for italics and bolding as an alternative to
-   asterisks. Instead implement underlining as follows.
-   Example: "\_underlined\_text\_" produces <u>underlined text</u>).
+<ul><li> vikas
+<ul><li> gola</li>
+</ul>
+</li>
 
-9. <strong>Horizontal Ruling</strong>. Implement only the code corresponding to
-   the use of at least 3 consecutive hypens (---) to produce
-   a horizontal line.
+<li>gola
+</li>
+</ul>
 
-2. <strong>Block quotes.</strong> Implement only the email-style block-quoting
-   (i.e. every line in a block quote should begin with >, 
-   otherwise it is not a block quote) along with the nested
-   block-quoting.
+<ol><li> <u>This HTML</u> **file <tt>mdtab.txt.html</tt> was produced by running
+	[markdown] [jg] on the text file <tt>mdtab.txt</tt>.
+	Use the text file to test your own program.
+</li>
 
-6. <strong>Links.</strong> Implement the direct href produced by the
-   using the "\[text\]\(http://url/of/the/link\)" syntax. Also implement the
-   automatic links feature e.g.
+<li> To know about markdown go to the [markdown syntax][jg]
+	page maintained by John Gruber. Many of the simplifications listed
+	below also refer to Gruber's document. 
+</li>
 
-   	     <http://www.cse.iitd.ac.in/~sak>
+<li> Recognize and leave all inline HTML tags unchanged.
+</li>
 
-   renders as <http://www.cse.iitd.ac.in/~sak> which
-   provides the URL and the link to the URL.
- 
-7. <strong>Lists.</strong> Implement 
+<li> <strong>Headings.</strong> Do not implement the underlining feature of 
+	markdown. Implement only the headings defined by hashes. 
+	Hence you must implement the 6 levels of headings which 
+	are the levels shown in
+	the centered lines at the beginning of this document. The
+	number of hashes at the beginning of the line indicates the 
+	heading level.
+</li>
 
-   - <em>ordered lists</em> -- as given by [John Gruber] [jg]. Pay particular 
-     attention to his 1986 example relating to escape sequencing the
-     "." in case 1986 comes at the beginning of a line.
-   - <em>unordered lists</em> -- implement only the hyphen (as done here).
+<li> Implement the following for pure text elements -- 
+	Use of double asterisks for <strong>bolding</strong> and single asterisks for
+	<em>italics</em>.
+	There is nothing in markdown for underlining -- under-scores are
+	used for italics and bolding as an alternative to
+	asterisks. Instead implement underlining as follows.
+	Example: "\_underlined\_text\_" produces <u>underlined text</u>).
+</li>
 
-1. Implement tables from csv format. For example the following is
+<li> <strong>Horizontal Ruling</strong>. Implement only the code corresponding to
+	the use of at least 3 consecutive hypens (---) to produce
+	a horizontal line.
+</li>
 
-   	     <<
-   	     1|2|3|4|9
-   	     5|6|7|8|10
-   	     11|12|13|14|15
-   	     >>
+<li> <strong>Block quotes.</strong> Implement only the email-style block-quoting
+	(i.e. every line in a block quote should begin with >, 
+	otherwise it is not a block quote) along with the nested
+	block-quoting.
+</li>
 
-   a possible syntax for an HTML table that looks like
+<li> <strong>Links.</strong> Implement the direct href produced by the
+	using the "\[text\]\(http://url/of/the/link\)" syntax. Also implement the
+	automatic links feature e.g.
 
-<CENTER><TABLE border="1">
+	     &lt;http://www.cse.iitd.ac.in/~sak>
+
+	renders as <a href ="http://www.cse.iitd.ac.in/~sak">http://www.cse.iitd.ac.in/~sak</a> which
+	provides the URL and the link to the URL.
+</li>
+
+<li> <strong>Lists.</strong> Implement 
+
+<ul><li> <em>ordered lists</em> -- as given by [John Gruber] [jg]. Pay particular 
+		attention to his 1986 example relating to escape sequencing the
+		"." in case 1986 comes at the beginning of a line.</li>
+</ul>
+
+<ul><li> <em>unordered lists</em> -- implement only the hyphen (as done here).
+</li>
+</ul>
+</li>
+
+<li> Implement tables from csv format. For example the following is
+
+		<<
+		1|2|3|4|9
+		5|6|7|8|10
+		11|12|13|14|15
+		>>
+
+	a possible syntax for an HTML table that looks like
+</li>
+</ol>
+<p><hr/></p>
+
+<p><CENTER><TABLE border="1">
   <TR><TD>1</TD><TD>2</TD><TD>3</TD><TD>4</TD><TD>9</TD></TR>
   <TR><TD>5</TD><TD>6</TD><TD>7</TD><TD>8</TD><TD>10</TD></TR>
   <TR><TD>11</TD><TD>12</TD><TD>13</TD><TD>14</TD><TD>15</TD></TR>
-</TABLE></CENTER>
+</TABLE></CENTER></p>
 
-0. Since this is as clear as possible and has already been discussed
-   in class, I will entertain no individual doubts on any forum. If you
-   still have some doubts, <font color=red>make reasonable design
-   decisions and explicitly state them as comments at the top of your
-   submission file.
+<p><hr/></p>
 
-[jg]: https://daringfireball.net/projects/markdown/synt
+
+<ol><li> Since this is as clear as possible and has already been discussed
+	in class, I will entertain no individual doubts on any forum. If you
+	still have some doubts, <font color=red>make reasonable design
+	decisions and explicitly state them as comments at the top of your
+	submission file.
+</li>
+</ol>
+<p>[jg]: https://daringfireball.net/projects/markdown/syntax
+
+
+</p>
