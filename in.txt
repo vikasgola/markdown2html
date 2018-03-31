@@ -61,7 +61,7 @@ using the functionalities given in <tt>fileIO.sml</tt>.
 	block-quoting.
 
 6. **Links.** Implement the direct href produced by the
-	using the "\[text\]\(http://url/of/the/link\)" syntax. Also implement the
+	using the "\[text](http://url/of/the/link)" syntax. [Google](http://www.google.com)  Also implement the
 	automatic links feature e.g.
 
 	     \<http://www.cse.iitd.ac.in/~sak>

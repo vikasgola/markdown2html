@@ -1,3 +1,15 @@
+
+(* all details of functions are in comments 
+for syntax learning of this markdown language *)
+
+(* please read the "README.md file" *)
+
+(* input filename will be given in main function *)
+
+(* sample input fie is sample.input.txt with approx all usage of syntax *)
+
+(* output is in out.html *)
+
 (* geting all characters from file to list from filIO.sml *)
 fun getclist (filename:string) = 
     let val f = TextIO.getInstream(TextIO.openIn filename)
@@ -265,16 +277,26 @@ in
                     append(output , "<blockquote>");
                     start(List.nth(charlist ,numq-1 ) , List.drop(charlist , numq ) , List.nth(charlist , numq + 1 ) , ["000"^Int.toString(numq)]@["</blockquote>"]@starter  )
                 )
-            )else if( hd(charlist) = chr(92) andalso (ahead = #"*" orelse ahead = #"#" orelse ahead = #"-" orelse (ahead = #">" andalso prev = #"\n" ) ) ) then (               (* mentined characters which have backslash in back will not be treated for syntax of markdown *)
+            )else if( hd(charlist) = chr(92) andalso (ahead = #"*" orelse ahead = #"#" orelse ahead = #"-" orelse (ahead = #">" andalso prev = #"\n" ) orelse ahead = #"[" ) ) then (               (* mentined characters which have backslash in back will not be treated for syntax of markdown *)
                 start(hd(charlist) , tl(charlist) , List.nth(charlist ,2) , starter  ) 
             )else if(List.take(charlist , 3) = [#"-", #"-", #"-"] andalso prev <> chr(92) ) then (                              (* if block for handling (---)horizontal line which are not backslashed *)
                 append(output , "<hr/>");
                 start(List.nth(charlist , 2) , List.drop(charlist, 3) , List.nth(charlist , 4) , starter )
             )else if(List.take(charlist , 3) = [#"<", #"h", #"t"]  andalso prev <> chr(92) ) then (                              (* if block for handling automatic links( like <https://something/something>) *)
                 append(output , "<a href =\""^implode(List.take(tl(charlist) , nextchar(#">" ,
-                charlist, length(charlist))-1 ) )^"\">"^implode(List.take(tl(charlist) , nextchar(#">" , charlist, length(charlist)) -1 ))^"</a>" );
+                    charlist, length(charlist))-1 ) )^"\">"^implode(List.take(tl(charlist) , nextchar(#">" , charlist, length(charlist)) -1 ))^"</a>" );
                 start(List.nth(charlist , nextchar(#">" , charlist, length(charlist))) , List.drop(charlist, nextchar(#">" , charlist, length(charlist))+1) ,
                 List.nth(charlist , nextchar(#">" , charlist, length(charlist)) + 2) , starter )
+            )else if( hd(charlist) = #"[" andalso prev <> chr(92) ) then (
+                if(nextchar(#"]" , charlist , length(charlist))+1 = nextchar(#"(" , charlist , length(charlist)) ) then (
+                    append(   output , "<a href =\""^implode(List.take( List.drop(charlist, nextchar(#"(" , charlist , length(charlist))+1 ) ,
+                            nextchar(#")" ,charlist, length(charlist))-2 -nextchar(#"]" , charlist , length(charlist)) ) )^"\">"^implode(List.take(tl(charlist) , nextchar(#"]" , charlist, length(charlist)) -1 ))^"</a>" );
+                    start(List.nth(charlist , nextchar(#")" , charlist, length(charlist))) , List.drop(charlist, nextchar(#")" , charlist, length(charlist))+1) ,
+                    List.nth(charlist , nextchar(#")" , charlist, length(charlist)) + 2) , starter )
+                )else (  
+                    append(output, str(hd(charlist)) ) ;
+                    start(hd(charlist) , tl(charlist) , List.nth(charlist ,2) , starter  )     
+                )
             )else if( hd(charlist) = chr(92) andalso (ahead = #"<" orelse ahead = #">" orelse ahead = #"&" orelse ahead = #"\"" orelse ahead = #"'" ) ) then (          (* html entities handling from here *)
                 entites(ahead);
                 start(hd(tl(charlist)) , tl(tl(charlist)) , List.nth(charlist ,3) , starter  ) 
