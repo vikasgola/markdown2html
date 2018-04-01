@@ -1,0 +1,44 @@
+
+<center>
+------
+# Documentation
+------
+</center>
+
+This markdown has been created by Vikas Gola to know more about him Goto [Vikas Gola](https://vikasgola.github.io/)
+
+1. So what this documentation is?
+	This is just a simple tutorial or u can say how to use of markdown language with my code.
+	First thing I want to tell u before we start is this documentation is itself **written using this markdown only** 
+	with it's powerfull syntax. The synatx for markdown in this documentation is in mostly italic for distinction.
+	Now, we can start...
+
+2. **About the code and How to use** - The code for this translator which translates the markdown into html is written in SML. Input for this can be given in function named as 'main' 
+	and output file name can be given in SML by making a variable with name _output_ (e.g. _val output = "inputfilename";_ ) or by changing variable "output" inside the code main.sml.
+	You can also give the give the csv file input which will auto detected and code will create table for that csv file.
+	The separator of csv file for default is '|'. You can also change it your convenience in _main.sml_. 
+	<br/>	
+	The Code is well commented any one with good knowledge of Standard ML can understand it.
+	I mostly tried to build functions specific to their work. The name of functions are mostly relevent or mean to their work.
+	They tells what it does.
+
+3. **Bold, Italic and Underline** - You can do any word or phrase in bold style just wrapping it in double star *\*\*like this\*\* *. 
+	Similarly to italic any word or phrase just wrape it with single star *\*like this\** and to underline any word or phrase wrap it with underscore *\_like this\_*. 
+
+4. **Paragraph and Blockquote** - Any line of words which are not part of anytype of lists (ordered or unordered)
+	surrounded by the at least blank lines will become the paragraph. The blockquotes are which block of lines have indentation more
+	from the surroundings and you can make blockquote by using this *>*(greater than sign) in front of each line as a first character.
+	You can also use recursive blockquotes which can be used by using more than *>*(greater than sign) in front of line. 
+	Please note that you can't use the blockquotes inside lists as it will result into the finishing of list read more about lists in next sections. Examples...<br/>
+	\>	this is a example of single blockquote<br/> 
+	\>>	this is recursive blockquotes.
+
+5. **Headings** - This markdown provides you the all the power of headings from html. Yes! you can use 6 type of headings
+	which have different sizes. Heading can be create by using the \# in any line. As you will increase the number
+	\# consecutively size of heading will decrease.
+	Examples:-<br/><br/>
+	\#\#\#\#\#\# heading with smallest size<br/>
+	\#\#\#\#\# bigger than above heading<br/>
+	_Will change into:-_ <br/>
+	###### heading with smallest size
+	##### bigger than above heading

@@ -10,6 +10,8 @@ for syntax learning of this markdown language *)
 
 (* output is in out.html *)
 
+(* there is also a documentation file which i have build using this code. named as "Documentation.html" *)
+
 (* geting all characters from file to list from filIO.sml *)
 fun getclist (filename:string) = 
     let val f = TextIO.getInstream(TextIO.openIn filename)
@@ -46,13 +48,18 @@ local
 
         (* function which handles bold and italic font style *)
     fun fonter(prev , ahead , list , starter) =
-             if(starter <> []) then ( if( prev <> chr(92) andalso ahead = #"*" andalso hd(list) = #"*" andalso hd(starter) <> "</strong>" ) then ( append (output , "<strong>") ; ( "</strong>" , true) )
-                        else if( prev <> chr(92) andalso ahead <> #"*" andalso hd(list) = #"*" andalso hd(starter) <> "</em>" ) then (append(output , "<em>") ; ( "</em>" , true) )
+             if(length(starter) > 1) then ( if( prev <> chr(92) andalso ahead = #"*" andalso hd(list) = #"*" andalso hd(starter) <> "</strong>" andalso hd(tl(starter)) <> "</strong>" ) then ( append (output , "<strong>") ; ( "</strong>" , true) )
+                        else if( prev <> chr(92) andalso ahead <> #"*" andalso hd(list) = #"*" andalso hd(starter) <> "</em>" andalso hd(tl(starter)) <> "</em>" ) then (append(output , "<em>") ; ( "</em>" , true) )
                         else ( " " , false)  
                         )
-            else if( prev <> chr(92) andalso ahead = #"*" andalso hd(list) = #"*"  ) then ( append (output , "<strong>") ; ( "</strong>" , true) )
-            else if( prev <> chr(92) andalso ahead <> #"*" andalso hd(list) = #"*" ) then ( append(output , "<em>") ; ( "</em>" , true) )
+            else if(length(starter) > 0) then (
+                 if( prev <> chr(92) andalso ahead = #"*" andalso hd(list) = #"*" andalso hd(starter) <> "</strong>" ) then ( append (output , "<strong>") ; ( "</strong>" , true) )
+                else if( prev <> chr(92) andalso ahead <> #"*" andalso hd(list) = #"*" andalso hd(starter) <> "</em>" ) then ( append(output , "<em>") ; ( "</em>" , true) )
+                else ( " " , false)
+            )else if( prev <> chr(92) andalso ahead = #"*" andalso hd(list) = #"*") then ( append (output , "<strong>") ; ( "</strong>" , true) )
+            else if( prev <> chr(92) andalso ahead <> #"*" andalso hd(list) = #"*") then ( append(output , "<em>") ; ( "</em>" , true) )
             else ( " " , false)
+            
 
 
         (* function which checks is it a can be ordered list item and returns the true or false with number's digit length  *)
@@ -99,10 +106,10 @@ local
         else headers(prev ,tl(list) , t+1)
     
         (* checks for if any fonter (bold or italic ) going to finish and returns true or falss *)
-    fun isinline( [] , data ) = (false ,0)
-        | isinline(ele , data) = if(hd(ele) = "</strong>" andalso List.take(data,2) = [#"*" , #"*" ] ) then (true , 2)
-                else if(hd(ele) = "</em>" andalso hd(data) = #"*" ) then (true , 1)
-                else (false , 0)
+    fun isinline(prev , [] , data ) = (false ,0)
+        | isinline(prev , ele , data) = if(hd(ele) = "</strong>" andalso List.take(data,2) = [#"*" , #"*" ] andalso prev <> chr(92) ) then (true , 2)
+                else if(hd(ele) = "</em>" andalso hd(data) = #"*" andalso prev <> chr(92) ) then (true , 1)
+                else ( false , 0)
 
         (* this function is little special I made it for debugging purpose which can be put anywhere *)
     fun checker() = (append(output,"hey");false)
@@ -128,6 +135,7 @@ local
         | #"&" => append(output , "&amp;")   
         | #"\"" => append(output , "&quot;")   
         | #"'" => append(output , "&apos;")   
+        | #"_" => append(output , "_")   
         | _ => append(output , "<h3> error </h3>")
         
 in
@@ -151,14 +159,14 @@ in
         (* charlist --> list of all characters from input file *)
         (* ahead --> ahead is char which is next to 2nd element of charlist its just for ease *)
         (* starter is a stack which keeps memory of all opened elements which have not been closed till now. *)
-    fun start(prev , [c1,c2] , ahead , starter ) = append(output , str(c1)^str(c2)^concat(rev(starter)) )     
+    fun start(prev , [c1,c2] , ahead , starter ) = append(output , str(c1)^str(c2)^concat((starter)) )     
         | start(prev , charlist , ahead  , starter ) = 
         let
             val (headstater , headgap ) = headers(prev ,charlist , 0);      (* can be heading at every starting of newline *)
             
             val (fontstarter , isfont) = fonter( prev, ahead , charlist, starter);  
         
-            val (fontfinish , fontgap) = isinline(starter , charlist );
+            val (fontfinish , fontgap) = isinline(prev ,starter , charlist );
 
             val (islister , lisnumgap , tabnumol) = islist( prev , charlist , 1 , 0);
 
@@ -168,14 +176,17 @@ in
 
             (* overall upper functions which gets details at every char that if it can be syntax of markdown *)
         in
-            if(hd(charlist) = #"\n" andalso length(starter) <> 0 andalso length(charlist) > 3 ) then (                                                                  (*all html elements closing happened in this if condition *)
+(**)       if(hd(charlist) = #"\n" andalso length(starter) <> 0 andalso length(charlist) > 3 ) then (                                                                  (*all html elements closing happened in this if condition *)
                 if( (List.take(explode(hd(starter)) , 3) = [#"<" , #"/" , #"h"] orelse hd(starter) = "</p>" ) andalso ahead = #"\n" ) then (    (*headers closing condition*)
-                    append(output, hd(starter)^"\n" );
+                    append(output, hd(starter) );
                     start(prev , charlist , ahead , tl(starter) )
                 )else if( ahead <> #"\n"  andalso hd(starter) = "</li>" andalso 
                     ord(hd(explode(hd(tl(starter))))) > 47 andalso ord(hd(explode(hd(tl(starter))))) <58  ) then (                               (*list elements closing condition*)
                     if( not (checkspace( tl(charlist) , valOf(Int.fromString(hd(tl(starter))))+1 ))  ) then (
-                        append(output , hd(starter)^"\n");
+                        if(prev <> #"\n") then
+                            append(output , hd(starter)^"\n")
+                        else
+                            append(output , hd(starter)^"<p></p>\n");
                         start(prev , charlist , ahead , tl(starter) )
                     )else(
                         append(output ,str(hd(charlist)) );
@@ -211,16 +222,16 @@ in
                     append(output ,str(hd(charlist)) );
                     start(hd(charlist) , tl(charlist) , List.nth(charlist ,2) , starter )
                 )
-            )else if( fontfinish ) then (                                   (* font( bolds and italics) tags finishes in this if block *)
+(**)        )else if( fontfinish ) then (                                   (* font( bolds and italics) tags finishes in this if block *)
                 append(output, hd(starter) );
                 start(List.nth(charlist, fontgap -1 ) ,
                         List.drop(charlist , fontgap ) ,
                         List.nth(charlist , fontgap +1 ) , tl(starter)  )
-            )else if( (headgap  > 0 ) ) then (                                  (* heading tag can be started from only this if block *)
+(**)        )else if( (headgap  > 0 ) ) then (                                  (* heading tag can be started from only this if block *)
                 start(List.nth(charlist, headgap -1 ) ,
                         List.drop(charlist , headgap ) ,
                         List.nth(charlist , headgap +1 ) , [headstater]@starter  )
-            )else if( islister ) then (                                               (* if block for ordered list (list or list item start from here) *)
+(**)        )else if( islister ) then (                                               (* if block for ordered list (list or list item start from here) *)
                 if( starter <> []) then(
                     if( not(isnumber(hd(explode(hd(starter))))) ) then(
                             append(output , "<ol><li>");
@@ -233,7 +244,7 @@ in
                     append(output , "<ol><li>");
                     start(List.nth(charlist ,lisnumgap-1 ) , List.drop(charlist ,lisnumgap-1 ) , List.nth(charlist ,2 + lisnumgap ) , ["</li>"]@["00"^Int.toString(tabnumol)]@["</ol>"]@starter  )
                 )
-            )else  if( isunlister ) then (                                          (* if block for unordered list (list or list item start from here) *)
+(**)        )else  if( isunlister ) then (                                          (* if block for unordered list (list or list item start from here) *)
                 if( starter <> [] ) then(
                     if( not(isnumber(hd(explode(hd(starter)))))  ) then(
                             append(output , "<ul><li>");
@@ -246,14 +257,14 @@ in
                     append(output , "<ul><li>");
                     start(List.nth(charlist ,0 ) , List.drop(charlist ,1 ) , List.nth(charlist ,2 ) , ["</li>"]@["00"^Int.toString(tabnum)]@["</ul>"]@starter  )
                 )
-            )else if(para(prev , charlist , ahead) ) then (                                 (* if block for paragraph *)
+(**)        )else if(para(prev , charlist , ahead) ) then (                                 (* if block for paragraph *)
                 start(hd(charlist) , tl(charlist) , List.nth(charlist ,2) , ["</p>"]@starter  )
-            )else if(isfont ) then (                                                            (* fonts(bold and italics) elements start from this if block *)
+(**)        )else if(isfont ) then (                                                            (* fonts(bold and italics) elements start from this if block *)
                 if(fontstarter = "</strong>") then
                     start(hd(tl(charlist)) , tl(tl(charlist)) , List.nth(charlist ,3) , [fontstarter]@starter  )
                 else 
                     start(hd(charlist) , tl(charlist) , List.nth(charlist ,2) , [fontstarter]@starter  )    
-            )else if( prev <> chr(92) (* " *) andalso hd(charlist) = #"_" ) then (                   (* underlined tag starts from this if block *)
+(**)        )else if( prev <> chr(92) (* " *) andalso hd(charlist) = #"_" ) then (                   (* underlined tag starts from this if block *)
                 if( hd(starter) <> "</u>" ) then (
                     append(output ,"<u>");
                     start(hd(charlist) , tl(charlist) , List.nth(charlist ,2) , ["</u>"]@starter  )
@@ -261,7 +272,7 @@ in
                     append(output , hd(starter));
                     start(hd(charlist) , tl(charlist) , List.nth(charlist ,2) , tl(starter)  )
                 )
-            )else if( isblkquoter ) then (                                              (* if block which handles or starts the blockquote elements*)
+(**)        )else if( isblkquoter ) then (                                              (* if block which handles or starts the blockquote elements*)
                 if( starter <> [] ) then(
                     if( isnumber(hd(explode(hd(starter)))) ) then(
                         if( numq <> valOf(Int.fromString(hd(starter))) ) then (
@@ -277,21 +288,21 @@ in
                     append(output , "<blockquote>");
                     start(List.nth(charlist ,numq-1 ) , List.drop(charlist , numq ) , List.nth(charlist , numq + 1 ) , ["000"^Int.toString(numq)]@["</blockquote>"]@starter  )
                 )
-            )else if( hd(charlist) = chr(92) andalso (ahead = #"*" orelse ahead = #"#" orelse ahead = #"-" orelse (ahead = #">" andalso prev = #"\n" ) orelse ahead = #"[" ) ) then (               (* mentined characters which have backslash in back will not be treated for syntax of markdown *)
+(**)        )else if( hd(charlist) = chr(92) andalso (ahead = #"*" orelse ahead = #"#" orelse ahead = #"-" orelse (ahead = #">" andalso prev = #"\n" ) orelse ahead = #"[" ) ) then (               (* mentined characters which have backslash in back will not be treated for syntax of markdown *)
                 start(hd(charlist) , tl(charlist) , List.nth(charlist ,2) , starter  ) 
-            )else if(List.take(charlist , 3) = [#"-", #"-", #"-"] andalso prev <> chr(92) ) then (                              (* if block for handling (---)horizontal line which are not backslashed *)
+(**)        )else if(List.take(charlist , 3) = [#"-", #"-", #"-"] andalso prev <> chr(92) ) then (                              (* if block for handling (---)horizontal line which are not backslashed *)
                 if(List.nth(charlist , 3) = #"-" ) then (
                     start(hd(charlist) , tl(charlist) , List.nth(charlist , 2) , starter )
                 )else(
                     append(output , "<hr/>");
                     start(List.nth(charlist , 2) , List.drop(charlist, 3) , List.nth(charlist , 4) , starter )                    
                 )
-            )else if(List.take(charlist , 3) = [#"<", #"h", #"t"]  andalso prev <> chr(92) ) then (                              (* if block for handling automatic links( like <https://something/something>) *)
+(**)        )else if(List.take(charlist , 3) = [#"<", #"h", #"t"]  andalso prev <> chr(92) ) then (                              (* if block for handling automatic links( like <https://something/something>) *)
                 append(output , "<a href =\""^implode(List.take(tl(charlist) , nextchar(#">" ,
                     charlist, length(charlist))-1 ) )^"\">"^implode(List.take(tl(charlist) , nextchar(#">" , charlist, length(charlist)) -1 ))^"</a>" );
                 start(List.nth(charlist , nextchar(#">" , charlist, length(charlist))) , List.drop(charlist, nextchar(#">" , charlist, length(charlist))+1) ,
                 List.nth(charlist , nextchar(#">" , charlist, length(charlist)) + 2) , starter )
-            )else if( hd(charlist) = #"[" andalso prev <> chr(92) ) then (
+(**)        )else if( hd(charlist) = #"[" andalso prev <> chr(92) ) then (
                 if(nextchar(#"]" , charlist , length(charlist))+1 = nextchar(#"(" , charlist , length(charlist)) ) then (
                     append(   output , "<a href =\""^implode(List.take( List.drop(charlist, nextchar(#"(" , charlist , length(charlist))+1 ) ,
                             nextchar(#")" ,charlist, length(charlist))-2 -nextchar(#"]" , charlist , length(charlist)) ) )^"\">"^implode(List.take(tl(charlist) , nextchar(#"]" , charlist, length(charlist)) -1 ))^"</a>" );
@@ -301,15 +312,15 @@ in
                     append(output, str(hd(charlist)) ) ;
                     start(hd(charlist) , tl(charlist) , List.nth(charlist ,2) , starter  )     
                 )
-            )else if( hd(charlist) = chr(92) andalso (ahead = #"<" orelse ahead = #">" orelse ahead = #"&" orelse ahead = #"\"" orelse ahead = #"'" ) ) then (          (* html entities handling from here *)
+(**)        )else if( hd(charlist) = chr(92) andalso (ahead = #"<" orelse ahead = #">" orelse ahead = #"&" orelse ahead = #"\"" orelse ahead = #"'" orelse ahead = #"_" ) ) then (          (* html entities handling from here *)
                 entites(ahead);
                 start(hd(tl(charlist)) , tl(tl(charlist)) , List.nth(charlist ,3) , starter  ) 
-            )else if( hd(charlist) = #"<" andalso ahead = #"<" ) then (          (* html entities handling from here *)
+(**)        )else if( hd(charlist) = #"<" andalso ahead = #"<" ) then (          (* html entities handling from here *)
                 append(output , "<CENTER><TABLE border=\"1\">\n <tr><td>");
                 csv(List.take( tl(tl(tl(charlist))) , nextchar(#">" ,tl(tl(tl(charlist))) , length(charlist)-3 )-1 ));
                 start(List.nth(charlist , nextchar(#">" ,(charlist) , length(charlist))+1 )
                      , List.drop(charlist , nextchar(#">" ,(charlist) , length(charlist))+2 ) , List.nth(charlist , nextchar(#">" ,(charlist) , length(charlist))+3 ) , starter  ) 
-            )else (                                                                 (* other all normal charcters just got printed normally *)
+(**)        )else (                                                                 (* other all normal charcters just got printed normally *)
                 append(output, str(hd(charlist)) ) ;
                 start(hd(charlist) , tl(charlist) , List.nth(charlist ,2) , starter  ) 
             )
@@ -323,6 +334,6 @@ fun main(filename) = ( write(output," ");                                       
                 csv(getclist(filename))
             )else(
                 (* start working on input file if it not csv format (not .csv file) *)
-                start( #"\n" , [#"\n"]@getclist(filename), hd(getclist(filename)) , []  ) 
+                start( #"\n" , [#"\n"]@getclist(filename)@[#"\n" ,#" ",#" ",#" "], hd(getclist(filename)) , []  ) 
             )
         ) 

@@ -1,130 +1,55 @@
  <p>
-<center></p>
-
-
-<h1>Department of Computer Science and Engineering</h1>
-
-
-
-<h2> Programming Languages</h2>
-
-
-
-<h3> II Semester 2017-18</h3>
-
-
-
-<h4> Instructor: [S. Arun-Kumar]</h4>
-
-
-
-<h5> Assignment 2</h5>
-
-
-
-<h6> A Markdown translator for HTML text + HTML tables from csv format</h6>
-
-
-<p></center></p>
-
-<p>We need to do the following. Create a markdown+table <em>functional</em> program in SML
-using the functionalities given in <tt>fileIO.sml</tt>.</p>
-
-
-<ol><li> <u>This HTML</u> **file <tt>mdtab.txt.html</tt> was produced by running
-	[markdown] [jg] on the text file <tt>mdtab.txt</tt>.
-	Use the text file to test your own program.
-</li>
-
-<li> To know about markdown go to the [markdown syntax][jg]
-	page maintained by John Gruber. Many of the simplifications listed
-	below also refer to Gruber's document. 
-</li>
-
-<li> Recognize and leave all inline HTML tags unchanged.
-</li>
-
-<li> <strong>Headings.</strong> Do not implement the underlining feature of 
-	markdown. Implement only the headings defined by hashes. 
-	Hence you must implement the 6 levels of headings which 
-	are the levels shown in
-	the centered lines at the beginning of this document. The
-	number of hashes at the beginning of the line indicates the 
-	heading level.
-</li>
-
-<li> Implement the following for pure text elements -- 
-	Use of double asterisks for <strong>bolding</strong> and single asterisks for
-	<em>italics</em>.
-	There is nothing in markdown for underlining -- under-scores are
-	used for italics and bolding as an alternative to
-	asterisks. Instead implement underlining as follows.
-	Example: "\_underlined\_text\_" produces <u>underlined text</u>).
-</li>
-
-<li> <strong>Horizontal Ruling</strong>. Implement only the code corresponding to
-	the use of at least 3 consecutive hypens (---) to produce
-	a horizontal line.
-</li>
-
-<li> <strong>Block quotes.</strong> Implement only the email-style block-quoting
-	(i.e. every line in a block quote should begin with >, 
-	otherwise it is not a block quote) along with the nested
-	block-quoting.
-</li>
-
-<li> <strong>Links.</strong> Implement the direct href produced by the
-	using the "[text](http://url/of/the/link)" syntax. <a href ="http://www.google.com">Google</a>  Also implement the
-	automatic links feature e.g.
-
-	     &lt;http://www.cse.iitd.ac.in/~sak>
-
-	renders as <a href ="http://www.cse.iitd.ac.in/~sak">http://www.cse.iitd.ac.in/~sak</a> which
-	provides the URL and the link to the URL.
-</li>
-
-<li> <strong>Lists.</strong> Implement 
-
-<ul><li> <em>ordered lists</em> -- as given by [John Gruber] [jg]. Pay particular 
-		attention to his 1986 example relating to escape sequencing the
-		"." in case 1986 comes at the beginning of a line.</li>
-</ul>
-
-<ul><li> <em>unordered lists</em> -- implement only the hyphen (as done here).
-</li>
-</ul>
-</li>
-
-<li> Implement tables from csv format. For example the following is
-
-		&lt;&lt;
-		1|2|3|4|9
-		5|6|7|8|10
-		11|12|13|14|15
-		>>
-
-	a possible syntax for an HTML table that looks like
-</li>
-</ol>
-<p><hr/></p>
-
-<p><CENTER><TABLE border="1">
-  <TR><TD>1</TD><TD>2</TD><TD>3</TD><TD>4</TD><TD>9</TD></TR>
-  <TR><TD>5</TD><TD>6</TD><TD>7</TD><TD>8</TD><TD>10</TD></TR>
-  <TR><TD>11</TD><TD>12</TD><TD>13</TD><TD>14</TD><TD>15</TD></TR>
-</TABLE></CENTER></p>
-
-<p><hr/></p>
-
-
-<ol><li> Since this is as clear as possible and has already been discussed
-	in class, I will entertain no individual doubts on any forum. If you
-	still have some doubts,make reasonable design
-	decisions and explicitly state them as comments at the top of your
-	submission file.
-</li>
-</ol>
-<p>[jg]: https://daringfireball.net/projects/markdown/syntax
-
-
+<center>
+<hr/>
+<h1> Documentation
+<hr/>
+</center></h1>
 </p>
+<p>This markdown has been created by Vikas Gola to know more about him Goto <a href ="https://vikasgola.github.io/">Vikas Gola</a></p>
+
+<ol><li> So what this documentation is?
+	This is just a simple tutorial or u can say how to use of markdown language with my code.
+	First thing I want to tell u before we start is this documentation is itself <strong>written using this markdown only</strong> 
+	with it's powerfull syntax. The synatx for markdown in this documentation is in mostly italic for distinction.
+	Now, we can start...
+</li><p></p>
+
+<li> <strong>About the code and How to use</strong> - The code for this translator which translates the markdown into html is written in SML. Input for this can be given in function named as 'main' 
+	and output file name can be given in SML by making a variable with name <u>output</u> (e.g. <u>val output = "inputfilename";</u> ) or by changing variable "output" inside the code main.sml.
+	You can also give the give the csv file input which will auto detected and code will create table for that csv file.
+	The separator of csv file for default is '|'. You can also change it your convenience in <u>main.sml</u>. 
+	<br/>	
+	The Code is well commented any one with good knowledge of Standard ML can understand it.
+	I mostly tried to build functions specific to their work. The name of functions are mostly relevent or mean to their work.
+	They tells what it does.
+</li><p></p>
+
+<li> <strong>Bold, Italic and Underline</strong> - You can do any word or phrase in bold style just wrapping it in double star <em>**like this** </em>. 
+	Similarly to italic any word or phrase just wrape it with single star <em>*like this*</em> and to underline any word or phrase wrap it with underscore <em>_like this_</em>. 
+</li><p></p>
+
+<li> <strong>Paragraph and Blockquote</strong> - Any line of words which are not part of anytype of lists (ordered or unordered)
+	surrounded by the at least blank lines will become the paragraph. The blockquotes are which block of lines have indentation more
+	from the surroundings and you can make blockquote by using this <em>></em>(greater than sign) in front of each line as a first character.
+	You can also use recursive blockquotes which can be used by using more than <em>></em>(greater than sign) in front of line. 
+	Please note that you can't use the blockquotes inside lists as it will result into the finishing of list read more about lists in next sections. Examples...<br/>
+	&gt;	this is a example of single blockquote<br/> 
+	&gt;>	this is recursive blockquotes.
+</li><p></p>
+
+<li> <strong>Headings</strong> - This markdown provides you the all the power of headings from html. Yes! you can use 6 type of headings
+	which have different sizes. Heading can be create by using the # in any line. As you will increase the number
+	# consecutively size of heading will decrease.
+	Examples:-<br/><br/>
+	###### heading with smallest size<br/>
+	##### bigger than above heading<br/>
+	<u>Will change into:-</u> <br/>
+	<h6> heading with smallest size
+	<h5> bigger than above heading</h5>
+</h6>
+
+
+
+</li><p></p>
+</ol>
+<p>   </p>

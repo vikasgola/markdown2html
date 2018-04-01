@@ -21,7 +21,7 @@ using the functionalities given in <tt>fileIO.sml</tt>.
 10. _This HTML_ \*\*file <tt>mdtab.txt.html</tt> was produced by running
 	[markdown] [jg] on the text file <tt>mdtab.txt</tt>.
 	Use the text file to test your own program.
-
+	
 8. To know about markdown go to the [markdown syntax][jg]
 	page maintained by John Gruber. Many of the simplifications listed
 	below also refer to Gruber's document. 
