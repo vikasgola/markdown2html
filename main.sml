@@ -280,8 +280,12 @@ in
             )else if( hd(charlist) = chr(92) andalso (ahead = #"*" orelse ahead = #"#" orelse ahead = #"-" orelse (ahead = #">" andalso prev = #"\n" ) orelse ahead = #"[" ) ) then (               (* mentined characters which have backslash in back will not be treated for syntax of markdown *)
                 start(hd(charlist) , tl(charlist) , List.nth(charlist ,2) , starter  ) 
             )else if(List.take(charlist , 3) = [#"-", #"-", #"-"] andalso prev <> chr(92) ) then (                              (* if block for handling (---)horizontal line which are not backslashed *)
-                append(output , "<hr/>");
-                start(List.nth(charlist , 2) , List.drop(charlist, 3) , List.nth(charlist , 4) , starter )
+                if(List.nth(charlist , 3) = #"-" ) then (
+                    start(hd(charlist) , tl(charlist) , List.nth(charlist , 2) , starter )
+                )else(
+                    append(output , "<hr/>");
+                    start(List.nth(charlist , 2) , List.drop(charlist, 3) , List.nth(charlist , 4) , starter )                    
+                )
             )else if(List.take(charlist , 3) = [#"<", #"h", #"t"]  andalso prev <> chr(92) ) then (                              (* if block for handling automatic links( like <https://something/something>) *)
                 append(output , "<a href =\""^implode(List.take(tl(charlist) , nextchar(#">" ,
                     charlist, length(charlist))-1 ) )^"\">"^implode(List.take(tl(charlist) , nextchar(#">" , charlist, length(charlist)) -1 ))^"</a>" );
@@ -300,6 +304,11 @@ in
             )else if( hd(charlist) = chr(92) andalso (ahead = #"<" orelse ahead = #">" orelse ahead = #"&" orelse ahead = #"\"" orelse ahead = #"'" ) ) then (          (* html entities handling from here *)
                 entites(ahead);
                 start(hd(tl(charlist)) , tl(tl(charlist)) , List.nth(charlist ,3) , starter  ) 
+            )else if( hd(charlist) = #"<" andalso ahead = #"<" ) then (          (* html entities handling from here *)
+                append(output , "<CENTER><TABLE border=\"1\">\n <tr><td>");
+                csv(List.take( tl(tl(tl(charlist))) , nextchar(#">" ,tl(tl(tl(charlist))) , length(charlist)-3 )-1 ));
+                start(List.nth(charlist , nextchar(#">" ,(charlist) , length(charlist))+1 )
+                     , List.drop(charlist , nextchar(#">" ,(charlist) , length(charlist))+2 ) , List.nth(charlist , nextchar(#">" ,(charlist) , length(charlist))+3 ) , starter  ) 
             )else (                                                                 (* other all normal charcters just got printed normally *)
                 append(output, str(hd(charlist)) ) ;
                 start(hd(charlist) , tl(charlist) , List.nth(charlist ,2) , starter  ) 

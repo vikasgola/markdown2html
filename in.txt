@@ -18,13 +18,6 @@
 We need to do the following. Create a markdown+table *functional* program in SML
 using the functionalities given in <tt>fileIO.sml</tt>.
 
-> We need to do the following. Create a markdown+table *functional* program in SML
-> using the functionalities given in <tt>fileIO.sml</tt>.
-
-- vikas
-	- gola
-- gola
-
 10. _This HTML_ \*\*file <tt>mdtab.txt.html</tt> was produced by running
 	[markdown] [jg] on the text file <tt>mdtab.txt</tt>.
 	Use the text file to test your own program.
@@ -78,7 +71,7 @@ using the functionalities given in <tt>fileIO.sml</tt>.
 
 1. Implement tables from csv format. For example the following is
 
-		<<
+		\<\<
 		1|2|3|4|9
 		5|6|7|8|10
 		11|12|13|14|15
@@ -86,7 +79,7 @@ using the functionalities given in <tt>fileIO.sml</tt>.
 
 	a possible syntax for an HTML table that looks like
 
----
+-------------------
 
 <CENTER><TABLE border="1">
   <TR><TD>1</TD><TD>2</TD><TD>3</TD><TD>4</TD><TD>9</TD></TR>
@@ -94,11 +87,11 @@ using the functionalities given in <tt>fileIO.sml</tt>.
   <TR><TD>11</TD><TD>12</TD><TD>13</TD><TD>14</TD><TD>15</TD></TR>
 </TABLE></CENTER>
 
----
+---------------------
 
 0. Since this is as clear as possible and has already been discussed
 	in class, I will entertain no individual doubts on any forum. If you
-	still have some doubts, <font color=red>make reasonable design
+	still have some doubts,make reasonable design
 	decisions and explicitly state them as comments at the top of your
 	submission file.
 
