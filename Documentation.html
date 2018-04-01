@@ -1,0 +1,121 @@
+ <p>
+<center>
+<hr/>
+<h1> Documentation
+<hr/>
+</center></h1>
+</p>
+<p>This markdown has been created by Vikas Gola to know more about him Goto <a href ="https://vikasgola.github.io/">Vikas Gola</a> .</p>
+
+<ol><li> So what this documentation is?
+	This is just a simple tutorial or u can say how to use of markdown language with my code.
+	First thing I want to tell u before we start is this documentation is itself <strong>written using this markdown only</strong> 
+	with it's powerfull syntax. The synatx for markdown in this documentation is in mostly italic for distinction.
+	Now, we can start...
+</li><p></p>
+
+<li> <strong>About the code and How to use</strong> - The code for this translator which translates the markdown into html is written in SML. Input for this can be given in function named as 'main' 
+	and output file name can be given in SML by making a variable with name <u>output</u> (e.g. <u>val output = "inputfilename";</u> ) or by changing variable "output" inside the code main.sml.
+	You can also give the give the csv file input which will auto detected and code will create table for that csv file.
+	The separator of csv file for default is '|'. You can also change it your convenience in <u>main.sml</u>. 
+	<br/>	
+	The Code is well commented any one with good knowledge of Standard ML can understand it.
+	I mostly tried to build functions specific to their work. The name of functions are mostly relevent or mean to their work.
+	They tells what it does.
+</li><p></p>
+
+<li> <strong>Bold, Italic and Underline</strong> - You can do any word or phrase in bold style just wrapping it in double star <em>**like this** </em>. 
+	Similarly to italic any word or phrase just wrape it with single star <em>*like this*</em> and to underline any word or phrase wrap it with underscore <em>_like this_</em>. 
+</li><p></p>
+
+<li> <strong>Paragraph and Blockquote</strong> - Any line of words which are not part of anytype of lists (ordered or unordered)
+	surrounded by the at least blank lines will become the paragraph. The blockquotes are which block of lines have indentation more
+	from the surroundings and you can make blockquote by using this <em>></em>(greater than sign) in front of each line as a first character.
+	You can also use recursive blockquotes which can be used by using more than <em>></em>(greater than sign) in front of line. 
+	Please note that you can't use the blockquotes inside lists as it will result into the finishing of list read more about lists in next sections. Examples...<br/>
+	<em>&gt;	this is a example of single blockquote<br/> 
+	&gt;>	this is recursive blockquotes.</em>
+</li><p></p>
+
+<li> <strong>Headings</strong> - This markdown provides you the all the power of headings from html. Yes! you can use 6 type of headings
+	which have different sizes. Heading can be create by using the # in any line. As you will increase the number
+	# consecutively size of heading will decrease.
+	Examples:-<br/><br/>
+	<em>###### heading with smallest size<br/>
+	##### bigger than above heading<br/></em>
+	<u>Will change into:-</u> <br/>
+	<h6> heading with smallest size</h6>
+
+
+	<h5> bigger than above heading</h5>
+
+</li><p></p>
+
+<li> <strong>Ordered and Unordered lists</strong> - The ordered list is which you are seeing this documentation in. 
+<ul><li> Every line which begins with number followed by dot without will be
+		a ordered list. The list items which have no blankspace markdown will have less space in between when it will convert into html.
+		Items with at least one blank line will have more space in between items. Every list item will be continued 
+		till it has lines with indentation according to there depth. </li>
+</ul>
+
+<ul><li> List items of unordered list should have -(minus sign) in front with one space followed.
+		Other syntax rules are mostly same for both lists. The great part is that you can make recursive lists with both.</li>
+</ul>
+
+	Note:- Indentation should be in <u>tabs</u>.
+</li><p></p>
+
+<li> <strong>Links</strong> - You can create links in two ways first is automated whose links names will be link address and 
+	it currently supports only the addresses which start with 'http' or 'https'.
+	e.g. &lt;your link address&gt; this will change into <a href ="http://your link address/">http://your link address/</a> <br/>
+	The other links are which have names different then there link addresses and they can be created by this
+	[Google](http://www.google.com) which will convert into <a href ="http://www.google.com">Google</a>.
+</li><p></p>
+
+<li> <strong>HTML entities, Horizontal ruling and HTML tags</strong> - You can use anytype of characters for which you have type html entities name but 
+	now u can use them as they are e.g To use ">" you have to type "&gt;" but here you can use it as ">" it will automatically 
+	converted to html entities.<br/>
+	You can even use direct html tags in htmls and they will not change. For example you can use &lt;center> tag from html any where in the markdown
+	and it will not change in html.<br/>
+	Horizontal lines can be created by using consecutively at least three '-' like ---.
+</li><p></p>
+
+<li> <strong>Tables</strong> - You can give the csv file as input in main function which will detect that csv format and will create the table from that data
+	which will be visible in center of any browser. Tables can also be made in markdown using this synatx <br/>
+	&lt;< <br/>
+	5|2|156<br/>
+	565|165|461<br/>
+	2123|12|138<br/>
+	>><br/>
+	which will create table like this:-
+	<CENTER><TABLE border="1">
+ <tr><td>	5</td> <td>2</td> <td>156</td></tr> 
+ <tr><td>	565</td> <td>165</td> <td>461</td></tr> 
+ <tr><td>	2123</td> <td>12</td> <td>138</td></tr> 
+</TABLE></CENTER>
+</li><p></p>
+
+<li> <strong>More</strong> - Now, what if you want to use one of the syntax for your litteral. Don't worry I have a solution for this 
+	you use the syntax related characters with blankspace and they will be shown as litteral.<br/>
+	e.g.<br/>
+	<em>\[Link name](link address) now this will not convert in link.<br/>
+	\&lt;< <br/>
+	5|2|156<br/>
+	565|165|461<br/>
+	2123|12|138<br/>
+	>> now this will not convert in table<br/>
+	\&gt; now this will not create blockquote<br/>
+	\* this will not make text italic<br/>
+	\_ this will not make text underlined<br/>
+	\*\* this will not make text bold<br/>
+	\--- this will not make it into horizontal line<br/>
+	\# now this will not be heading.</em><br/>
+	and etc...
+</li><p></p>
+</ol>
+<p><br/>
+<hr/>
+<center>&copy; copyright 2018-2019</center>
+<center><a href ="https://www.facebook.com/profile.php?id=100009575229804">facebok</a> | <a href ="https://twitter.com/vikasgola2015">Twitter</a> | <a href ="https://github.com/vikasgola">Github</a> | <a href ="https://instagram.com/vikasgola2015">Instagram</a> | <a href ="https://www.linkedin.com/in/vikas-gola-4a45b4135/">Linkdin</a> </center>
+<br/></p>
+<p>   </p>

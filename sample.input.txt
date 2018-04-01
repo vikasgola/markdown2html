@@ -5,7 +5,7 @@
 ------
 </center>
 
-This markdown has been created by Vikas Gola to know more about him Goto [Vikas Gola](https://vikasgola.github.io/)
+This markdown has been created by Vikas Gola to know more about him Goto [Vikas Gola](https://vikasgola.github.io/) .
 
 1. So what this documentation is?
 	This is just a simple tutorial or u can say how to use of markdown language with my code.
@@ -30,15 +30,75 @@ This markdown has been created by Vikas Gola to know more about him Goto [Vikas 
 	from the surroundings and you can make blockquote by using this *>*(greater than sign) in front of each line as a first character.
 	You can also use recursive blockquotes which can be used by using more than *>*(greater than sign) in front of line. 
 	Please note that you can't use the blockquotes inside lists as it will result into the finishing of list read more about lists in next sections. Examples...<br/>
-	\>	this is a example of single blockquote<br/> 
-	\>>	this is recursive blockquotes.
+	*\>	this is a example of single blockquote<br/> 
+	\>>	this is recursive blockquotes.*
 
 5. **Headings** - This markdown provides you the all the power of headings from html. Yes! you can use 6 type of headings
 	which have different sizes. Heading can be create by using the \# in any line. As you will increase the number
 	\# consecutively size of heading will decrease.
 	Examples:-<br/><br/>
-	\#\#\#\#\#\# heading with smallest size<br/>
-	\#\#\#\#\# bigger than above heading<br/>
+	*\#\#\#\#\#\# heading with smallest size<br/>
+	\#\#\#\#\# bigger than above heading<br/>*
 	_Will change into:-_ <br/>
 	###### heading with smallest size
+
 	##### bigger than above heading
+
+6. **Ordered and Unordered lists** - The ordered list is which you are seeing this documentation in. 
+	- Every line which begins with number followed by dot without will be
+		a ordered list. The list items which have no blankspace markdown will have less space in between when it will convert into html.
+		Items with at least one blank line will have more space in between items. Every list item will be continued 
+		till it has lines with indentation according to there depth. 
+	- List items of unordered list should have -(minus sign) in front with one space followed.
+		Other syntax rules are mostly same for both lists. The great part is that you can make recursive lists with both.
+	Note:- Indentation should be in _tabs_.
+
+7. **Links** - You can create links in two ways first is automated whose links names will be link address and 
+	it currently supports only the addresses which start with 'http' or 'https'.
+	e.g. \<your link address\> this will change into <http://your link address/> <br/>
+	The other links are which have names different then there link addresses and they can be created by this
+	\[Google](http://www.google.com) which will convert into [Google](http://www.google.com).
+
+8. **HTML entities, Horizontal ruling and HTML tags** - You can use anytype of characters for which you have type html entities name but 
+	now u can use them as they are e.g To use ">" you have to type "&gt;" but here you can use it as ">" it will automatically 
+	converted to html entities.<br/>
+	You can even use direct html tags in htmls and they will not change. For example you can use \<center> tag from html any where in the markdown
+	and it will not change in html.<br/>
+	Horizontal lines can be created by using consecutively at least three '-' like \---.
+
+9. **Tables** - You can give the csv file as input in main function which will detect that csv format and will create the table from that data
+	which will be visible in center of any browser. Tables can also be made in markdown using this synatx <br/>
+	\<< <br/>
+	5|2|156<br/>
+	565|165|461<br/>
+	2123|12|138<br/>
+	>><br/>
+	which will create table like this:-
+	<<
+	5|2|156
+	565|165|461
+	2123|12|138
+	>>
+
+10. **More** - Now, what if you want to use one of the syntax for your litteral. Don't worry I have a solution for this 
+	you use the syntax related characters with blankspace and they will be shown as litteral.<br/>
+	e.g.<br/>
+	*\\[Link name](link address) now this will not convert in link.<br/>
+	\\<< <br/>
+	5|2|156<br/>
+	565|165|461<br/>
+	2123|12|138<br/>
+	>> now this will not convert in table<br/>
+	\\> now this will not create blockquote<br/>
+	\\* this will not make text italic<br/>
+	\\_ this will not make text underlined<br/>
+	\\*\\* this will not make text bold<br/>
+	\\--- this will not make it into horizontal line<br/>
+	\\# now this will not be heading.*<br/>
+	and etc...
+
+<br/>
+---------
+<center>&copy; copyright 2018-2019</center>
+<center>[facebok](https://www.facebook.com/profile.php?id=100009575229804) | [Twitter](https://twitter.com/vikasgola2015) | [Github](https://github.com/vikasgola) | [Instagram](https://instagram.com/vikasgola2015) | [Linkdin](https://www.linkedin.com/in/vikas-gola-4a45b4135/) </center>
+<br/>

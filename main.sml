@@ -330,7 +330,7 @@ end
             (*  main function starts just after getting input from user *)
 fun main(filename) = ( write(output," ");                                                       (* clearing the file before creating it *)  
             if( List.take(rev(explode(filename)),3) = [#"v" , #"s" , #"c" ] ) then (            (* checking file for csv format (.csv) *)
-                append(output , "<CENTER><TABLE border=\"1\">\n <tr><td>");                 (* starting table and calling csv function to do remaning work *)
+                append(output , "<CENTER><TABLE border=\"5\">\n <tr><td>");                 (* starting table and calling csv function to do remaning work *)
                 csv(getclist(filename))
             )else(
                 (* start working on input file if it not csv format (not .csv file) *)
